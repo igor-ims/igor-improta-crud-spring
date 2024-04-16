@@ -40,7 +40,13 @@ public class LibroController {
 
     @PostMapping("/add")
     public String addUser(@ModelAttribute("libro") @Validated Libro libro, BindingResult result, Model model) {
+        
         if (result.hasErrors()) {
+            return "add-libro";
+        }
+
+        if (libroService.obtenerIdPorIsbn(libro.getIsbn()) != -1) {
+            model.addAttribute("error", "ISBN existente. No fue posible insertar el Libro.");
             return "add-libro";
         }
 
@@ -62,6 +68,12 @@ public class LibroController {
     public String updateUser(@PathVariable Integer id, @ModelAttribute("libro") @Validated Libro libro, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "update-libro";
+        }
+
+        int existingId = libroService.obtenerIdPorIsbn(libro.getIsbn());
+        if (existingId != -1 && existingId != id) {
+            model.addAttribute("error", "ISBN existente. No fue posible modificar el Libro.");
+            return "add-libro";
         }
 
         libro.setId(id);

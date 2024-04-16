@@ -25,4 +25,7 @@ public interface LibroRepository extends JpaRepository<Libro, Integer>{
 
     @Query("SELECT COALESCE(MAX(lib.id), 0) FROM Libro lib")
     int findMaxId();
+
+    @Query("SELECT l.id FROM Libro l WHERE l.isbn = :isbn")
+    Integer findIdByIsbn(String isbn);
 }

@@ -55,4 +55,9 @@ public class LibroCRUDServiceImpl implements LibroCRUDService{
     public int obtenerMaxId() {
         return LibroRepository.findMaxId();
     }
+
+    public int obtenerIdPorIsbn(String isbn){
+        Integer id = LibroRepository.findIdByIsbn(isbn);
+        return (id == null) ? -1 : id;
+    }
 }

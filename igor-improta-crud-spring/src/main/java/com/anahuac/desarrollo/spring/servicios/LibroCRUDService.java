@@ -11,4 +11,5 @@ public interface LibroCRUDService {
     void modificarLibro(Libro libro);
     void insertarLibro(Libro libro);
     int obtenerMaxId();
+    int obtenerIdPorIsbn(String isbn);
 }
